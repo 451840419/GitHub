@@ -1,0 +1,21 @@
+---
+- hosts: test
+tasks:
+#安装防火墙firewalld
+- name: install firewalld
+yum:
+name: firewalld
+state: present
+#启动防火墙firewalld
+- name: run firewalld
+service:
+name: firewalld
+state: started
+enabled: yes
+#给防火墙添加规则，允许tcp协议通过80端口访问，设置为开机自启动
+- name: set firewalld rule.
+firewalld:
+port: 80/tcp
+permanent: yes
+immediate: yes ##让定义的规则立即生效
+state: enabled
